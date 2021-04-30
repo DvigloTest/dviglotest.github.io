@@ -40,7 +40,7 @@ function initSidebar()
     
         sidebarInnerHTML +=
             "<input type='checkbox' onchange='updateContent();' >" +
-            "<a href='" + rootDir + "___tags/" + tag + ".html'>" + tag + "</a>";
+            "<a href='___tags/" + tag + ".html'>" + tag + "</a>";
         
         // Если это не последний тег, то добавляем разрыв строки
         if (i != tags.length - 1)
@@ -121,7 +121,10 @@ function updateContent()
     for (let i = 0; i < filteredArticles.length; i++)
     {
         let article = filteredArticles[i];
-        contentInnerHTML += "<a href='" + rootDir + article.url + "'>" + article.title + "</a>";
+
+        // Относительная ссылка на корневой каталог должна начинаться с '/', но тогда не будет работать локально на компе.
+        // Обходим это через вход в папку и выход из неё
+        contentInnerHTML += "<a href='___tags/../" + article.url + "'>" + article.title + "</a>";
 
         // Если это не последняя статья, то добавляем разрыв строки
         if (i != filteredArticles.length - 1)
